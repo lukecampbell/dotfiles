@@ -13,10 +13,13 @@ set $mod Mod4
 exec --no-startup-id /home/luke/bin/xstartup
 # Remap caps-lock to super
 exec --no-startup-id setxkbmap -option caps:super
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id compton
+
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:monospace 5
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -39,7 +42,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -fn 'Ubuntu Mono-8'
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -146,12 +149,12 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 # Pulse Audio controls
-bindsym $mod+F12 exec --no-startup-id pactl set-sink-volume bluez_sink.CC_98_8B_E0_CA_85.a2dp_sink +5% #increase sound volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume bluez_sink.CC_98_8B_E0_CA_85.a2dp_sink +5% #increase sound volume
-bindsym $mod+F11 exec --no-startup-id pactl set-sink-volume bluez_sink.CC_98_8B_E0_CA_85.a2dp_sink -5% #decrease sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume bluez_sink.CC_98_8B_E0_CA_85.a2dp_sink -5% #decrease sound volume
-bindsym $mod+F10 exec --no-startup-id pactl set-sink-mute bluez_sink.CC_98_8B_E0_CA_85.a2dp_sink toggle # mute sound
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute bluez_sink.CC_98_8B_E0_CA_85.a2dp_sink toggle # mute sound
+bindsym $mod+F12 exec --no-startup-id /home/luke/bin/volumectl vol 0.05 #increase sound volume 5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id /home/luke/bin/volumectl vol 0.05 #increase sound volume 5%
+bindsym $mod+F11 exec --no-startup-id /home/luke/bin/volumectl vol -0.05 #increase sound volume 5%
+bindsym XF86AudioLowerVolume exec --no-startup-id /home/luke/bin/volumectl vol -0.05 #increase sound volume 5%
+bindsym $mod+F10 exec --no-startup-id /home/luke/bin/volumectl mute # toggle mute
+bindsym XF86AudioMute exec --no-startup-id /home/luke/bin/volumectl mute # toggle mute
 
 # Media player controls
 bindsym $mod+F6 exec playerctl play-pause
@@ -199,3 +202,8 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+
+# Home monitor setup
+workspace 1 output DP-0
+workspace 2 output HDMI-2
+workspace 3 output HDMI-1
